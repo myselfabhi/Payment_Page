@@ -4,6 +4,7 @@ import { Button } from "@/app/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
 import { Separator } from "@/app/components/ui/separator";
 import { THEME } from "@/app/theme";
+import { RECEIPT_DATA, downloadReceipt } from "@/app/receipt";
 import { CheckCircle2, Download, Printer } from "lucide-react";
 
 export function PaymentSuccessPage() {
@@ -29,7 +30,13 @@ export function PaymentSuccessPage() {
 
   useEffect(() => {
     if (countdown === 0) {
-      navigate("/checkout", { state: { showBookingConfirmed: true } });
+      navigate("/checkout", {
+        state: {
+          showBookingConfirmed: true,
+          receiptTxnId: txnId,
+          receiptDate: currentDate,
+        },
+      });
       return;
     }
 
@@ -45,59 +52,7 @@ export function PaymentSuccessPage() {
   };
 
   const handleDownload = () => {
-    const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Payment Receipt</title>
-  <style>
-    body { font-family: system-ui, sans-serif; max-width: 560px; margin: 24px auto; padding: 16px; color: #363636; }
-    h1 { color: #29b6c4; font-size: 1.25rem; }
-    h2 { font-size: 1rem; margin-top: 16px; }
-    .row { display: flex; justify-content: space-between; margin: 8px 0; font-size: 14px; }
-    .label { color: #414042; }
-    .value { font-weight: 500; }
-    hr { border: none; border-top: 1px solid #d4ebf3; margin: 12px 0; }
-    .total { font-weight: 600; font-size: 1.125rem; margin-top: 12px; padding-top: 12px; border-top: 1px solid #d4ebf3; }
-    .status { background: #e8f6f5; border: 1px solid #d4ebf3; padding: 12px; border-radius: 8px; margin-top: 16px; font-size: 14px; }
-  </style>
-</head>
-<body>
-  <h1>Payment Receipt</h1>
-  <p style="color:#414042;font-size:14px;">Transaction Confirmation</p>
-  <hr/>
-  <div class="row"><span class="label">Transaction ID:</span><span class="value">${txnId}</span></div>
-  <div class="row"><span class="label">Date & Time:</span><span class="value">${currentDate}</span></div>
-  <div class="row"><span class="label">Order ID:</span><span class="value">#ORD-2026-001</span></div>
-  <div class="row"><span class="label">Payment Method:</span><span class="value">Online Payment</span></div>
-  <hr/>
-  <h2>Customer Details</h2>
-  <div class="row"><span class="label">Name:</span><span class="value">Deepak Thakur</span></div>
-  <div class="row"><span class="label">Contact:</span><span class="value">9916645647</span></div>
-  <div class="row"><span class="label">Email:</span><span class="value">deepakthakur19@gmail.com</span></div>
-  <hr/>
-  <h2>Booking Details</h2>
-  <div class="row"><span class="label">Venue:</span><span class="value">Children's Arena</span></div>
-  <div class="row"><span class="label">Venue Type:</span><span class="value">Auditorium in Ground Floor(A/c)</span></div>
-  <div class="row"><span class="label">From Date:</span><span class="value">04-03-2026</span></div>
-  <div class="row"><span class="label">To Date:</span><span class="value">05-03-2026</span></div>
-  <div class="row"><span class="label">Amount per Day:</span><span class="value">₹17980.00</span></div>
-  <hr/>
-  <div class="row"><span class="label">Total Amount:</span><span>₹35960.00</span></div>
-  // <div class="row total"><span>Total Paid:</span><span style="color:#29b6c4;">₹1,68,268.00</span></div>
-  <div class="status">
-    <strong style="color:#3097C7;">Payment Status: Confirmed</strong><br/>
-    <span style="color:#414042;">A confirmation email has been sent to your registered email address.</span>
-  </div>
-</body>
-</html>`;
-    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `receipt-${txnId}.html`;
-    a.click();
-    URL.revokeObjectURL(url);
+    downloadReceipt(txnId, currentDate);
   };
 
   return (
@@ -148,7 +103,7 @@ export function PaymentSuccessPage() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span style={{ color: THEME.textSecondary }}>Order ID:</span>
-                  <span className="font-medium" style={{ color: THEME.textPrimary }}>#ORD-2026-001</span>
+                  <span className="font-medium" style={{ color: THEME.textPrimary }}>{RECEIPT_DATA.orderId}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span style={{ color: THEME.textSecondary }}>Payment Method:</span>
@@ -163,15 +118,15 @@ export function PaymentSuccessPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
                   <div>
                     <span style={{ color: THEME.textSecondary }}>Name:</span>
-                    <p className="font-medium" style={{ color: THEME.textPrimary }}>Deepak Thakur</p>
+                    <p className="font-medium" style={{ color: THEME.textPrimary }}>{RECEIPT_DATA.customerName}</p>
                   </div>
                   <div>
                     <span style={{ color: THEME.textSecondary }}>Contact:</span>
-                    <p className="font-medium" style={{ color: THEME.textPrimary }}>9916645647</p>
+                    <p className="font-medium" style={{ color: THEME.textPrimary }}>{RECEIPT_DATA.customerContact}</p>
                   </div>
                   <div className="col-span-2">
                     <span style={{ color: THEME.textSecondary }}>Email:</span>
-                    <p className="font-medium" style={{ color: THEME.textPrimary }}>deepakthakur19@gmail.com</p>
+                    <p className="font-medium" style={{ color: THEME.textPrimary }}>{RECEIPT_DATA.customerEmail}</p>
                   </div>
                 </div>
               </div>
@@ -183,32 +138,31 @@ export function PaymentSuccessPage() {
                 <div className="text-sm space-y-1">
                   <div className="flex justify-between">
                     <span style={{ color: THEME.textSecondary }}>Venue:</span>
-                    <span className="font-medium" style={{ color: THEME.textPrimary }}>Children's Arena</span>
+                    <span className="font-medium" style={{ color: THEME.textPrimary }}>{RECEIPT_DATA.venue}</span>
                   </div>
                   <div className="flex justify-between">
                     <span style={{ color: THEME.textSecondary }}>Venue Type:</span>
-                    <span className="font-medium" style={{ color: THEME.textPrimary }}>Auditorium in Ground Floor(A/c)</span>
+                    <span className="font-medium" style={{ color: THEME.textPrimary }}>{RECEIPT_DATA.venueType}</span>
                   </div>
                   <div className="flex justify-between">
                     <span style={{ color: THEME.textSecondary }}>From Date:</span>
-                    <span className="font-medium" style={{ color: THEME.textPrimary }}>04-03-2026</span>
+                    <span className="font-medium" style={{ color: THEME.textPrimary }}>{RECEIPT_DATA.fromDate}</span>
                   </div>
                   <div className="flex justify-between">
                     <span style={{ color: THEME.textSecondary }}>To Date:</span>
-                    <span className="font-medium" style={{ color: THEME.textPrimary }}>05-03-2026</span>
+                    <span className="font-medium" style={{ color: THEME.textPrimary }}>{RECEIPT_DATA.toDate}</span>
                   </div>
                   <div className="flex justify-between">
                     <span style={{ color: THEME.textSecondary }}>Amount per Day:</span>
-                    <span className="font-medium" style={{ color: THEME.textPrimary }}>₹17,980.00</span>
+                    <span className="font-medium" style={{ color: THEME.textPrimary }}>{RECEIPT_DATA.amountPerDay}</span>
                   </div>
                 </div>
               </div>
 
-
               <div className="space-y-2">
                 <div className="flex justify-between text-lg pt-2 border-t" style={{ borderColor: THEME.borderLight }}>
                   <span className="font-semibold" style={{ color: THEME.textPrimary }}>Total Paid:</span>
-                  <span className="font-semibold" style={{ color: THEME.tealCardHeader }}>₹35,960.00</span>
+                  <span className="font-semibold" style={{ color: THEME.tealCardHeader }}>{RECEIPT_DATA.totalPaid}</span>
                 </div>
               </div>
 
