@@ -81,10 +81,10 @@ export function PaymentSuccessPage() {
   <div class="row"><span class="label">Venue Type:</span><span class="value">Auditorium in Ground Floor(A/c)</span></div>
   <div class="row"><span class="label">From Date:</span><span class="value">04-03-2026</span></div>
   <div class="row"><span class="label">To Date:</span><span class="value">05-03-2026</span></div>
-  <div class="row"><span class="label">Amount per Day:</span><span class="value">₹11000.00</span></div>
+  <div class="row"><span class="label">Amount per Day:</span><span class="value">₹17980.00</span></div>
   <hr/>
   <div class="row"><span class="label">Total Amount:</span><span>₹35960.00</span></div>
-  <div class="row total"><span>Total Paid:</span><span style="color:#29b6c4;">₹1,68,268.00</span></div>
+  // <div class="row total"><span>Total Paid:</span><span style="color:#29b6c4;">₹1,68,268.00</span></div>
   <div class="status">
     <strong style="color:#3097C7;">Payment Status: Confirmed</strong><br/>
     <span style="color:#414042;">A confirmation email has been sent to your registered email address.</span>
@@ -199,25 +199,16 @@ export function PaymentSuccessPage() {
                   </div>
                   <div className="flex justify-between">
                     <span style={{ color: THEME.textSecondary }}>Amount per Day:</span>
-                    <span className="font-medium" style={{ color: THEME.textPrimary }}>₹71,300.00</span>
+                    <span className="font-medium" style={{ color: THEME.textPrimary }}>₹17,980.00</span>
                   </div>
                 </div>
               </div>
 
-              <Separator style={{ backgroundColor: THEME.borderLight }} />
 
               <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span style={{ color: THEME.textSecondary }}>Subtotal:</span>
-                  <span style={{ color: THEME.textPrimary }}>₹1,42,600.00</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span style={{ color: THEME.textSecondary }}>Tax (GST 18%):</span>
-                  <span style={{ color: THEME.textPrimary }}>₹25,668.00</span>
-                </div>
                 <div className="flex justify-between text-lg pt-2 border-t" style={{ borderColor: THEME.borderLight }}>
                   <span className="font-semibold" style={{ color: THEME.textPrimary }}>Total Paid:</span>
-                  <span className="font-semibold" style={{ color: THEME.tealCardHeader }}>₹1,68,268.00</span>
+                  <span className="font-semibold" style={{ color: THEME.tealCardHeader }}>₹35,960.00</span>
                 </div>
               </div>
 
