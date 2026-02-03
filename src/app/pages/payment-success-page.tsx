@@ -81,10 +81,9 @@ export function PaymentSuccessPage() {
   <div class="row"><span class="label">Venue Type:</span><span class="value">Auditorium in Ground Floor(A/c)</span></div>
   <div class="row"><span class="label">From Date:</span><span class="value">04-03-2026</span></div>
   <div class="row"><span class="label">To Date:</span><span class="value">05-03-2026</span></div>
-  <div class="row"><span class="label">Amount per Day:</span><span class="value">₹71,300.00</span></div>
+  <div class="row"><span class="label">Amount per Day:</span><span class="value">₹11000.00</span></div>
   <hr/>
-  <div class="row"><span class="label">Subtotal:</span><span>₹1,42,600.00</span></div>
-  <div class="row"><span class="label">Tax (GST 18%):</span><span>₹25,668.00</span></div>
+  <div class="row"><span class="label">Total Amount:</span><span>₹35960.00</span></div>
   <div class="row total"><span>Total Paid:</span><span style="color:#29b6c4;">₹1,68,268.00</span></div>
   <div class="status">
     <strong style="color:#3097C7;">Payment Status: Confirmed</strong><br/>
@@ -108,13 +107,13 @@ export function PaymentSuccessPage() {
     >
       <main className="w-full flex items-center justify-center p-3 sm:p-4 min-w-0 box-border">
         <Card
-          className="w-full max-w-2xl min-w-0 mx-1 border-0 shadow-xl"
+          className="w-full max-w-2xl min-w-0 mx-1 border-0 shadow-xl animate-fintech-fade-in-up"
           style={{ backgroundColor: "#ffffff", borderColor: THEME.borderLight }}
         >
           <CardHeader className="text-center px-4 sm:px-6 pt-4 sm:pt-6 pb-4" style={{ borderBottom: `1px solid ${THEME.borderLight}` }}>
             <div className="flex justify-center mb-3 sm:mb-4">
               <div
-                className="p-3 sm:p-4 rounded-full"
+                className="p-3 sm:p-4 rounded-full animate-fintech-success-pop"
                 style={{ backgroundColor: THEME.bgSoft }}
               >
                 <CheckCircle2 className="h-12 w-12 sm:h-16 sm:w-16" style={{ color: THEME.tealCardHeader }} />
@@ -236,7 +235,7 @@ export function PaymentSuccessPage() {
               <Button
                 variant="outline"
                 onClick={handlePrint}
-                className="w-full sm:flex-1"
+                className="w-full sm:flex-1 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                 style={{ borderColor: THEME.borderLight, color: THEME.tealAccent }}
               >
                 <Printer className="h-4 w-4 mr-2 shrink-0" />
@@ -245,7 +244,7 @@ export function PaymentSuccessPage() {
               <Button
                 variant="outline"
                 onClick={handleDownload}
-                className="w-full sm:flex-1"
+                className="w-full sm:flex-1 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                 style={{ borderColor: THEME.borderLight, color: THEME.tealAccent }}
               >
                 <Download className="h-4 w-4 mr-2 shrink-0" />
@@ -254,7 +253,7 @@ export function PaymentSuccessPage() {
             </div>
 
             <p className="text-center text-sm pb-4" style={{ color: THEME.textSecondary }}>
-              Redirecting to checkout in <span className="font-semibold" style={{ color: THEME.tealCardHeader }}>{countdown}</span> seconds...
+              Redirecting to checkout in <span className="font-semibold animate-fintech-pulse-soft" style={{ color: THEME.tealCardHeader }}>{countdown}</span> seconds...
             </p>
           </CardContent>
         </Card>

@@ -1,0 +1,123 @@
+/**
+ * Fintech-style animations for the payment flow.
+ * Use with Tailwind transition utilities where needed.
+ */
+
+@keyframes fintech-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fintech-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fintech-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fintech-success-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fintech-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes fintech-pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes fintech-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fintech-content-swap {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Utility classes for use in components */
+.animate-fintech-fade-in-up {
+  animation: fintech-fade-in-up 0.4s ease-out forwards;
+}
+
+.animate-fintech-fade-in {
+  animation: fintech-fade-in 0.3s ease-out forwards;
+}
+
+.animate-fintech-scale-in {
+  animation: fintech-scale-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-fintech-success-pop {
+  animation: fintech-success-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-fintech-pulse-soft {
+  animation: fintech-pulse-soft 1.5s ease-in-out infinite;
+}
+
+.animate-fintech-content-swap {
+  animation: fintech-content-swap 0.25s ease-out forwards;
+}
+
+/* Stagger delays for list items */
+.animate-fintech-stagger-1 { animation-delay: 0.05s; }
+.animate-fintech-stagger-2 { animation-delay: 0.1s; }
+.animate-fintech-stagger-3 { animation-delay: 0.15s; }
+.animate-fintech-stagger-4 { animation-delay: 0.2s; }
+.animate-fintech-stagger-5 { animation-delay: 0.25s; }
+.animate-fintech-stagger-6 { animation-delay: 0.3s; }
+.animate-fintech-stagger-7 { animation-delay: 0.35s; }

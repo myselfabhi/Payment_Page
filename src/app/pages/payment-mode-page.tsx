@@ -161,11 +161,11 @@ export function PaymentModePage() {
       {/* Payment processing / success overlay */}
       {paymentStatus !== "idle" && (
         <div
-          className="fixed inset-0 z-50 flex flex-col items-center justify-center px-4"
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center px-4 animate-fintech-fade-in"
           style={{ background: "rgba(245, 248, 223, 0.92)" }}
         >
           <Card
-            className="w-full max-w-sm border-0 shadow-2xl overflow-hidden rounded-2xl"
+            className="w-full max-w-sm border-0 shadow-2xl overflow-hidden rounded-2xl animate-fintech-scale-in"
             style={{ borderColor: THEME.borderLight, backgroundColor: "#ffffff" }}
           >
             <div
@@ -175,7 +175,7 @@ export function PaymentModePage() {
               {paymentStatus === "processing" ? (
                 <Loader2 className="h-12 w-12 text-white animate-spin" />
               ) : (
-                <CheckCircle2 className="h-12 w-12 text-white" />
+                <CheckCircle2 className="h-12 w-12 text-white animate-fintech-success-pop" />
               )}
             </div>
             <CardContent className="pt-6 pb-6 px-6 text-center">
@@ -196,7 +196,7 @@ export function PaymentModePage() {
                   <p className="text-sm" style={{ color: THEME.textSecondary }}>
                     Redirecting you to the confirmation page…
                   </p>
-                  <p className="text-lg font-bold mt-3 tabular-nums" style={{ color: THEME.tealCardHeader }}>
+                  <p className="text-lg font-bold mt-3 tabular-nums animate-fintech-pulse-soft" style={{ color: THEME.tealCardHeader }}>
                     {redirectCountdown} second{redirectCountdown !== 1 ? "s" : ""}
                   </p>
                 </>
@@ -209,12 +209,12 @@ export function PaymentModePage() {
       <main className="w-full flex flex-col items-center justify-center py-3 sm:py-4 px-3 sm:px-4 box-border min-w-0">
         <div className="w-full max-w-lg flex flex-col items-center gap-3 sm:gap-4 min-w-0 px-1">
           {/* Back */}
-          <div className="flex items-center justify-start w-full min-w-0">
+          <div className="flex items-center justify-start w-full min-w-0 animate-fintech-fade-in-up">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => navigate("/contact-details")}
-              className="h-9 w-9 rounded-full shrink-0"
+              className="h-9 w-9 rounded-full shrink-0 transition-transform duration-200 hover:scale-110 active:scale-95"
               style={{ color: THEME.textPrimary }}
             >
               <ChevronRight className="h-5 w-5 rotate-180" />
@@ -222,7 +222,7 @@ export function PaymentModePage() {
           </div>
 
           <Card
-            className="w-full border-0 shadow-xl overflow-hidden shrink-0 min-w-0 rounded-t-xl rounded-b-xl gap-0"
+            className="w-full border-0 shadow-xl overflow-hidden shrink-0 min-w-0 rounded-t-xl rounded-b-xl gap-0 animate-fintech-fade-in-up animate-fintech-stagger-2"
             style={{ borderColor: THEME.borderLight, backgroundColor: "#ffffff" }}
           >
             {/* VMRDA logo strip – top of card, rounded top only, joined to content below */}
@@ -245,16 +245,19 @@ export function PaymentModePage() {
                 background: "linear-gradient(180deg, #374151 0%, #4b5563 50%, #6b7280 100%)",
               }}
             >
-              {BANK_LOGO_LIST.map((logo) => (
-                <div
-                  key={logo.id}
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shrink-0 overflow-hidden bg-white border p-0.5"
-                  style={{ borderColor: THEME.borderLight }}
-                  title={logo.alt}
-                >
-                  <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain" />
-                </div>
-              ))}
+              {BANK_LOGO_LIST.map((logo, i) => {
+                const staggerClass = ["animate-fintech-stagger-1", "animate-fintech-stagger-2", "animate-fintech-stagger-3", "animate-fintech-stagger-4", "animate-fintech-stagger-5", "animate-fintech-stagger-6", "animate-fintech-stagger-7"][Math.min(i, 6)];
+                return (
+                  <div
+                    key={logo.id}
+                    className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center shrink-0 overflow-hidden bg-white border p-0.5 transition-transform duration-200 hover:scale-110 animate-fintech-fade-in-up ${staggerClass}`}
+                    style={{ borderColor: THEME.borderLight }}
+                    title={logo.alt}
+                  >
+                    <img src={logo.src} alt={logo.alt} className="w-full h-full object-contain" />
+                  </div>
+                );
+              })}
             </div>
 
             <CardHeader className="pb-2 pt-2 sm:pt-3 px-4 sm:px-6 border-b rounded-none" style={{ borderColor: THEME.borderLight }}>
@@ -282,7 +285,7 @@ export function PaymentModePage() {
                         setActiveTab(tab.id);
                         if (tab.id !== "netbanking 2.0") setNetbankingMode("choice");
                       }}
-                      className={`flex-1 min-w-[calc(25%-4px)] sm:min-w-0 flex items-center justify-center gap-1 sm:gap-1.5 py-2 rounded-md text-[10px] sm:text-xs font-medium transition-colors shrink-0 ${
+                      className={`flex-1 min-w-[calc(25%-4px)] sm:min-w-0 flex items-center justify-center gap-1 sm:gap-1.5 py-2 rounded-md text-[10px] sm:text-xs font-medium transition-all duration-200 shrink-0 active:scale-[0.98] ${
                         activeTab === tab.id ? "text-white shadow" : "hover:bg-white/50"
                       }`}
                       style={activeTab === tab.id ? { backgroundColor: THEME.tealCardHeader } : { color: THEME.textSecondary }}
@@ -296,7 +299,7 @@ export function PaymentModePage() {
 
               {/* UPI content */}
               {activeTab === "upi" && (
-                <div className="space-y-5">
+                <div className="space-y-5 animate-fintech-content-swap">
                   {/* QR Section */}
                   <div>
                     <h3 className="text-sm font-semibold mb-2" style={{ color: THEME.textPrimary }}>UPI QR</h3>
@@ -360,7 +363,7 @@ export function PaymentModePage() {
 
               {/* Card content */}
               {activeTab === "card" && (
-                <div className="space-y-4">
+                <div className="space-y-4 animate-fintech-content-swap">
                   {/* Card network logos */}
                   <div className="flex items-center gap-3">
                     <img src={CARD_LOGOS.visa} alt="Visa" className="h-5 w-auto object-contain" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
@@ -427,7 +430,7 @@ export function PaymentModePage() {
 
               {/* Netbanking 2.0 content */}
               {activeTab === "netbanking 2.0" && (
-                <div className="space-y-4">
+                <div className="space-y-4 animate-fintech-content-swap">
                   {netbankingMode === "choice" && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <button
@@ -545,7 +548,7 @@ export function PaymentModePage() {
 
               {/* Wallet content */}
               {activeTab === "wallet" && (
-                <div className="space-y-4">
+                <div className="space-y-4 animate-fintech-content-swap">
                   <h3 className="text-xs sm:text-sm font-semibold" style={{ color: THEME.textPrimary }}>Choose your wallet</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
                     {wallets.map((wallet) => (
@@ -597,7 +600,7 @@ export function PaymentModePage() {
             <CardFooter className="p-0 !pb-0 flex flex-col shrink-0">
               <Button
                 type="submit"
-                className="w-full h-11 rounded-t-none rounded-b-xl text-white hover:opacity-90 transition-opacity"
+                className="w-full h-11 rounded-t-none rounded-b-xl text-white hover:opacity-90 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
                 size="lg"
                 style={{ backgroundColor: THEME.tealPrimary }}
               >

@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router";
-import { LoginPage } from "@/app/components/login-page";
-import { CheckoutPage } from "@/app/components/checkout-page";
-import { PaymentPage } from "@/app/components/payment-page";
-import { ContactDetailsPage } from "@/app/components/contact-details-page";
-import { PaymentModePage } from "@/app/components/payment-mode-page";
-import { PaymentSuccessPage } from "@/app/components/payment-success-page";
+import { LoginPage } from "@/app/pages/login-page";
+import { CheckoutPage } from "@/app/pages/checkout-page";
+import { PaymentPage } from "@/app/pages/payment-page";
+import { ContactDetailsPage } from "@/app/pages/contact-details-page";
+import { PaymentModePage } from "@/app/pages/payment-mode-page";
+import { PaymentSuccessPage } from "@/app/pages/payment-success-page";
 
 export const router = createBrowserRouter([
   {

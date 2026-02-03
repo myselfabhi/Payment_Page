@@ -109,7 +109,7 @@ export function CheckoutPage() {
       {/* Booking confirmed modal – shown after redirect from receipt page */}
       {showBookingModal && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fintech-fade-in"
           style={{
             backgroundColor: "rgba(0, 0, 0, 0.65)",
             backdropFilter: "blur(12px)",
@@ -117,7 +117,7 @@ export function CheckoutPage() {
           }}
         >
           <div
-            className="relative w-full max-w-md rounded-2xl shadow-2xl p-6 sm:p-8"
+            className="relative w-full max-w-md rounded-2xl shadow-2xl p-6 sm:p-8 animate-fintech-scale-in"
             style={{
               backgroundColor: "#ffffff",
               border: `1px solid ${THEME.borderLight}`,
@@ -167,7 +167,7 @@ export function CheckoutPage() {
 
       <main className="flex-1 flex items-start justify-center p-3 sm:p-4 md:p-6 w-full min-w-0 max-w-[100vw] box-border">
         <Card
-          className="w-full max-w-5xl border-0 shadow-xl overflow-hidden min-w-0"
+          className="w-full max-w-5xl border-0 shadow-xl overflow-hidden min-w-0 animate-fintech-fade-in-up"
           style={{ backgroundColor: "#ffffff", borderColor: THEME.borderLight }}
         >
           <CardHeader className="pb-4 px-4 sm:px-6" style={{ borderBottom: `1px solid ${THEME.borderLight}` }}>

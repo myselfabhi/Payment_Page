@@ -31,12 +31,12 @@ export function ContactDetailsPage() {
       <main className="w-full flex flex-col items-center justify-center py-3 sm:py-4 px-3 sm:px-4 box-border min-w-0">
         <div className="w-full max-w-lg flex flex-col items-center gap-3 sm:gap-4 min-w-0 px-1">
           {/* Back */}
-          <div className="flex items-center justify-start w-full min-w-0">
+          <div className="flex items-center justify-start w-full min-w-0 animate-fintech-fade-in-up">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => navigate("/payment-summary")}
-              className="h-9 w-9 rounded-full shrink-0"
+              className="h-9 w-9 rounded-full shrink-0 transition-transform duration-200 hover:scale-110 active:scale-95"
               style={{ color: THEME.textPrimary }}
             >
               <ArrowLeft className="h-4 w-4" />
@@ -44,7 +44,7 @@ export function ContactDetailsPage() {
           </div>
 
           <Card
-            className="w-full border-0 shadow-xl overflow-hidden shrink-0 min-w-0 rounded-t-xl rounded-b-xl"
+            className="w-full border-0 shadow-xl overflow-hidden shrink-0 min-w-0 rounded-t-xl rounded-b-xl animate-fintech-fade-in-up animate-fintech-stagger-2"
             style={{ borderColor: THEME.borderLight, backgroundColor: "#ffffff" }}
           >
             {/* VMRDA logo strip – top of card, rounded top only, joined to content below */}
@@ -119,7 +119,7 @@ export function ContactDetailsPage() {
               <CardFooter className="p-0 !pb-0 flex flex-col shrink-0">
                 <Button
                   type="submit"
-                  className="w-full h-11 rounded-t-none rounded-b-xl text-white hover:opacity-90 transition-opacity"
+                  className="w-full h-11 rounded-t-none rounded-b-xl text-white hover:opacity-90 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200"
                   size="lg"
                   style={{ backgroundColor: THEME.tealPrimary }}
                 >

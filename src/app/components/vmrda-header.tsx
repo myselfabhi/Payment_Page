@@ -1,7 +1,7 @@
 import { Menu } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 
-import vmrdaLogo from "@/VMRDA Logo.png";
+import vmrdaLogo from "@/assets/brand/VMRDA Logo.png";
 
 /* Darker teal on the left for logo contrast; transitions to original palette toward the right */
 const HEADER_GRADIENT = "linear-gradient(90deg, #1B6B65 0%, #248277 18%, #3A9A8E 35%, #5FC0B8 50%, #B8D9B0 75%, #F5F8DF 100%)";
