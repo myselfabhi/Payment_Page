@@ -66,7 +66,7 @@ export function CheckoutPage() {
   <h2>Customer Details</h2>
   <div class="row"><span class="label">Name:</span><span class="value">Deepak Thakur</span></div>
   <div class="row"><span class="label">Contact:</span><span class="value">9916645647</span></div>
-  <div class="row"><span class="label">Email:</span><span class="value">ashishtiwari19@gmail.com</span></div>
+  <div class="row"><span class="label">Email:</span><span class="value">deepakthakur19@gmail.com</span></div>
   <hr/>
   <h2>Booking Details</h2>
   <div class="row"><span class="label">Venue:</span><span class="value">Children's Arena</span></div>

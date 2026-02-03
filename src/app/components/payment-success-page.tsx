@@ -8,7 +8,7 @@ import { CheckCircle2, Download, Printer } from "lucide-react";
 
 export function PaymentSuccessPage() {
   const navigate = useNavigate();
-  const [countdown, setCountdown] = useState(10);
+  const [countdown, setCountdown] = useState(6);
 
   const currentDate = useMemo(
     () =>
