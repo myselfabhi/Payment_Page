@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "@/app/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/components/ui/card";
@@ -10,9 +10,26 @@ export function PaymentSuccessPage() {
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState(10);
 
+  const currentDate = useMemo(
+    () =>
+      new Date().toLocaleString("en-IN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      }),
+    []
+  );
+  const txnId = useMemo(
+    () => `TXN${Math.random().toString(36).substr(2, 9).toUpperCase()}`,
+    []
+  );
+
   useEffect(() => {
     if (countdown === 0) {
-      navigate("/checkout");
+      navigate("/checkout", { state: { showBookingConfirmed: true } });
       return;
     }
 
@@ -28,21 +45,61 @@ export function PaymentSuccessPage() {
   };
 
   const handleDownload = () => {
-    alert("Receipt download functionality would be implemented here");
+    const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Payment Receipt</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 560px; margin: 24px auto; padding: 16px; color: #363636; }
+    h1 { color: #29b6c4; font-size: 1.25rem; }
+    h2 { font-size: 1rem; margin-top: 16px; }
+    .row { display: flex; justify-content: space-between; margin: 8px 0; font-size: 14px; }
+    .label { color: #414042; }
+    .value { font-weight: 500; }
+    hr { border: none; border-top: 1px solid #d4ebf3; margin: 12px 0; }
+    .total { font-weight: 600; font-size: 1.125rem; margin-top: 12px; padding-top: 12px; border-top: 1px solid #d4ebf3; }
+    .status { background: #e8f6f5; border: 1px solid #d4ebf3; padding: 12px; border-radius: 8px; margin-top: 16px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h1>Payment Receipt</h1>
+  <p style="color:#414042;font-size:14px;">Transaction Confirmation</p>
+  <hr/>
+  <div class="row"><span class="label">Transaction ID:</span><span class="value">${txnId}</span></div>
+  <div class="row"><span class="label">Date & Time:</span><span class="value">${currentDate}</span></div>
+  <div class="row"><span class="label">Order ID:</span><span class="value">#ORD-2026-001</span></div>
+  <div class="row"><span class="label">Payment Method:</span><span class="value">Online Payment</span></div>
+  <hr/>
+  <h2>Customer Details</h2>
+  <div class="row"><span class="label">Name:</span><span class="value">Deepak Thakur</span></div>
+  <div class="row"><span class="label">Contact:</span><span class="value">9916645647</span></div>
+  <div class="row"><span class="label">Email:</span><span class="value">ashishtiwari19@gmail.com</span></div>
+  <hr/>
+  <h2>Booking Details</h2>
+  <div class="row"><span class="label">Venue:</span><span class="value">Children's Arena</span></div>
+  <div class="row"><span class="label">Venue Type:</span><span class="value">Auditorium in Ground Floor(A/c)</span></div>
+  <div class="row"><span class="label">From Date:</span><span class="value">04-03-2026</span></div>
+  <div class="row"><span class="label">To Date:</span><span class="value">05-03-2026</span></div>
+  <div class="row"><span class="label">Amount per Day:</span><span class="value">₹71,300.00</span></div>
+  <hr/>
+  <div class="row"><span class="label">Subtotal:</span><span>₹1,42,600.00</span></div>
+  <div class="row"><span class="label">Tax (GST 18%):</span><span>₹25,668.00</span></div>
+  <div class="row total"><span>Total Paid:</span><span style="color:#29b6c4;">₹1,68,268.00</span></div>
+  <div class="status">
+    <strong style="color:#3097C7;">Payment Status: Confirmed</strong><br/>
+    <span style="color:#414042;">A confirmation email has been sent to your registered email address.</span>
+  </div>
+</body>
+</html>`;
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `receipt-${txnId}.html`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
-
-  const handleGoHome = () => {
-    navigate("/checkout");
-  };
-
-  const currentDate = new Date().toLocaleString("en-IN", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
 
   return (
     <div
@@ -84,7 +141,7 @@ export function PaymentSuccessPage() {
               <div className="space-y-3">
                 <div className="flex justify-between text-sm">
                   <span style={{ color: THEME.textSecondary }}>Transaction ID:</span>
-                  <span className="font-medium" style={{ color: THEME.textPrimary }}>TXN{Math.random().toString(36).substr(2, 9).toUpperCase()}</span>
+                  <span className="font-medium" style={{ color: THEME.textPrimary }}>{txnId}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span style={{ color: THEME.textSecondary }}>Date & Time:</span>
@@ -194,18 +251,10 @@ export function PaymentSuccessPage() {
                 <Download className="h-4 w-4 mr-2 shrink-0" />
                 Download
               </Button>
-              <Button
-                onClick={handleGoHome}
-                className="w-full sm:flex-1 rounded-full text-white hover:opacity-90 transition-opacity"
-                size="lg"
-                style={{ backgroundColor: THEME.tealPrimary }}
-              >
-                Done
-              </Button>
             </div>
 
             <p className="text-center text-sm pb-4" style={{ color: THEME.textSecondary }}>
-              Redirecting to home page in <span className="font-semibold" style={{ color: THEME.tealCardHeader }}>{countdown}</span> seconds...
+              Redirecting to checkout in <span className="font-semibold" style={{ color: THEME.tealCardHeader }}>{countdown}</span> seconds...
             </p>
           </CardContent>
         </Card>

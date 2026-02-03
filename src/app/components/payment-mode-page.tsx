@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Button } from "@/app/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/app/components/ui/card";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
-import { ChevronDown, ChevronRight, CreditCard, Building2, Smartphone, Wallet } from "lucide-react";
+import { ChevronDown, ChevronRight, CreditCard, Building2, Smartphone, Wallet, Loader2, CheckCircle2 } from "lucide-react";
 import { THEME } from "@/app/theme";
 import vmrdaLogo from "@/VMRDA Logo.png";
 import npstLogo from "@/npst_logo_ic.svg";
@@ -98,11 +98,34 @@ export function PaymentModePage() {
   const [selectedWallet, setSelectedWallet] = useState<string | null>(null);
   const [bankLogoErrors, setBankLogoErrors] = useState<Set<string>>(new Set());
   const [netbankingMode, setNetbankingMode] = useState<"choice" | "qr" | "redirect">("choice");
+  const [paymentStatus, setPaymentStatus] = useState<"idle" | "processing" | "success">("idle");
+  const [redirectCountdown, setRedirectCountdown] = useState(0);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/payment-success");
+    setPaymentStatus("processing");
   };
+
+  useEffect(() => {
+    if (paymentStatus !== "processing") return;
+    const t = setTimeout(() => setPaymentStatus("success"), 2500);
+    return () => clearTimeout(t);
+  }, [paymentStatus]);
+
+  useEffect(() => {
+    if (paymentStatus === "success") setRedirectCountdown(3);
+  }, [paymentStatus]);
+
+  useEffect(() => {
+    if (paymentStatus !== "success" || redirectCountdown <= 0) return;
+    const t = setTimeout(() => {
+      setRedirectCountdown((c) => {
+        if (c <= 1) navigate("/payment-success");
+        return c - 1;
+      });
+    }, 1000);
+    return () => clearTimeout(t);
+  }, [paymentStatus, redirectCountdown, navigate]);
 
   const banks = [
     { id: "hdfc", name: "HDFC", color: "#004C8F", initial: "H" },
@@ -134,6 +157,54 @@ export function PaymentModePage() {
       className="min-h-screen flex flex-col items-center justify-center w-full min-w-0 overflow-x-hidden"
       style={{ background: THEME.pageBg }}
     >
+      {/* Payment processing / success overlay */}
+      {paymentStatus !== "idle" && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center px-4"
+          style={{ background: "rgba(245, 248, 223, 0.92)" }}
+        >
+          <Card
+            className="w-full max-w-sm border-0 shadow-2xl overflow-hidden rounded-2xl"
+            style={{ borderColor: THEME.borderLight, backgroundColor: "#ffffff" }}
+          >
+            <div
+              className="w-full flex justify-center items-center py-4 px-6 rounded-t-2xl"
+              style={{ background: "linear-gradient(135deg, #3d9a92 0%, #5eb5ad 50%, #7ec9c2 100%)" }}
+            >
+              {paymentStatus === "processing" ? (
+                <Loader2 className="h-12 w-12 text-white animate-spin" />
+              ) : (
+                <CheckCircle2 className="h-12 w-12 text-white" />
+              )}
+            </div>
+            <CardContent className="pt-6 pb-6 px-6 text-center">
+              {paymentStatus === "processing" ? (
+                <>
+                  <p className="text-base font-semibold mb-1" style={{ color: THEME.textPrimary }}>
+                    Processing payment
+                  </p>
+                  <p className="text-sm" style={{ color: THEME.textSecondary }}>
+                    Please wait while we are processing the payment.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="text-base font-semibold mb-1" style={{ color: THEME.textPrimary }}>
+                    Payment successful
+                  </p>
+                  <p className="text-sm" style={{ color: THEME.textSecondary }}>
+                    Redirecting you to the confirmation page…
+                  </p>
+                  <p className="text-lg font-bold mt-3 tabular-nums" style={{ color: THEME.tealCardHeader }}>
+                    {redirectCountdown} second{redirectCountdown !== 1 ? "s" : ""}
+                  </p>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       <main className="w-full flex flex-col items-center justify-center py-3 sm:py-4 px-3 sm:px-4 box-border min-w-0">
         <div className="w-full max-w-lg flex flex-col items-center gap-3 sm:gap-4 min-w-0 px-1">
           {/* Back */}
