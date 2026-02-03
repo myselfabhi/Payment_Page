@@ -126,11 +126,18 @@ export function ContactDetailsPage() {
           </Card>
 
           <p
-            className="w-full max-w-lg flex items-center justify-end gap-1.5 text-xs sm:text-sm italic"
+            className="w-full max-w-lg flex items-center justify-between gap-2 text-sm sm:text-base italic"
             style={{ color: THEME.textSecondary }}
           >
-            <span>powered by</span>
-            <img src={npstLogo} alt="NPST" className="h-3.5 w-auto object-contain" />
+            <img
+              src="https://go-assets.ibcdn.com/u/MMT/images/1719381692923-safePayment.png"
+              alt="Safe Payment"
+              className="h-7 sm:h-8 w-auto object-contain shrink-0"
+            />
+            <span className="flex items-center gap-1.5 ml-auto">
+              <span>powered by</span>
+              <img src={npstLogo} alt="NPST" className="h-4 sm:h-5 w-auto object-contain" />
+            </span>
           </p>
         </div>
       </main>
