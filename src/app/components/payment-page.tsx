@@ -6,6 +6,10 @@ import { THEME } from "@/app/theme";
 import { ArrowLeft } from "lucide-react";
 import vmrdaLogo from "@/VMRDA Logo.png";
 import npstLogo from "@/npst_logo_ic.svg";
+import footerPciDss from "@/footer/Razorpay/PCI_DSS_logo.png";
+import footerVerisign from "@/footer/Razorpay/verisign_verified_logo.png";
+import footerVisa from "@/footer/Razorpay/Visa_logo.png";
+import footerMastercard from "@/footer/Razorpay/mastercard_securecode_logo.png";
 
 export function PaymentPage() {
   const navigate = useNavigate();
@@ -123,11 +127,12 @@ export function PaymentPage() {
             className="w-full max-w-lg flex items-center justify-between gap-2 text-sm sm:text-base italic"
             style={{ color: THEME.textSecondary }}
           >
-            <img
-              src="https://go-assets.ibcdn.com/u/MMT/images/1719381692923-safePayment.png"
-              alt="Safe Payment"
-              className="h-7 sm:h-8 w-auto object-contain shrink-0"
-            />
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              <img src={footerPciDss} alt="PCI DSS" className="h-5 sm:h-6 w-auto object-contain" />
+              <img src={footerVerisign} alt="Verified" className="h-5 sm:h-6 w-auto object-contain" />
+              <img src={footerVisa} alt="Visa" className="h-5 sm:h-6 w-auto object-contain" />
+              <img src={footerMastercard} alt="Mastercard SecureCode" className="h-5 sm:h-6 w-auto object-contain" />
+            </div>
             <span className="flex items-center gap-1.5 ml-auto">
               <span>powered by</span>
               <img src={npstLogo} alt="NPST" className="h-4 sm:h-5 w-auto object-contain" />

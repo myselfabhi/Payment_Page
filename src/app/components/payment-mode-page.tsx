@@ -8,14 +8,14 @@ import { ChevronDown, ChevronRight, CreditCard, Building2, Smartphone, Wallet, L
 import { THEME } from "@/app/theme";
 import vmrdaLogo from "@/VMRDA Logo.png";
 import npstLogo from "@/npst_logo_ic.svg";
-// Bank Logo (single tab above Payment mode)
-import bankCanara from "@/Bank Logo/Canara Logo.jpg";
-import bankCashfree from "@/Bank Logo/Cashfree logo.png";
-import bankEnkash from "@/Bank Logo/Enkash.png";
-import bankHdfc from "@/Bank Logo/HDFC Logo.png";
-import bankIndian from "@/Bank Logo/Indian Bank Logo.png";
-import bankIob from "@/Bank Logo/IOB Logo.jpg";
-import bankRazorpay from "@/Bank Logo/razorpay.png";
+// Bank Logo (single tab above Payment mode) - from Logos_Bank/Razorpay
+import bankCanara from "@/Logos_Bank/Razorpay/CANBK.NS.png";
+import bankEnkash from "@/Logos_Bank/Razorpay/Enkash.png";
+import bankHdfc from "@/Logos_Bank/Razorpay/HDFC.png";
+import bankIndian from "@/Logos_Bank/Razorpay/INDIANB.NS.png";
+import bankIob from "@/Logos_Bank/Razorpay/indian-overseas logo.png";
+import bankRazorpay from "@/Logos_Bank/Razorpay/razorpay-logo.png";
+import bankCashfree from "@/Logos_Bank/Razorpay/Cashfree logo.png";
 // TPAP UPI app logos (Scan the QR section)
 import tpapBhim from "@/TPAP Logos/icons8-bhim-48.png";
 import tpapGooglePay from "@/TPAP Logos/icons8-google-pay-48.png";
@@ -31,6 +31,11 @@ import ruPaySvg from "@/RuPay.png";
 import bobLogo from "@/BOB.png";
 import kotakLogo from "@/KOTAK.png";
 import sbiLogo from "@/SBI-logo.png";
+// Footer security logos
+import footerPciDss from "@/footer/Razorpay/PCI_DSS_logo.png";
+import footerVerisign from "@/footer/Razorpay/verisign_verified_logo.png";
+import footerVisa from "@/footer/Razorpay/Visa_logo.png";
+import footerMastercard from "@/footer/Razorpay/mastercard_securecode_logo.png";
 
 // Payment gateway / card network logos (Visa, Mastercard from CDN; RuPay from local)
 const CARD_LOGOS = {
@@ -610,11 +615,12 @@ export function PaymentModePage() {
             className="w-full max-w-lg flex items-center justify-between gap-2 text-sm sm:text-base italic"
             style={{ color: THEME.textSecondary }}
           >
-            <img
-              src="https://go-assets.ibcdn.com/u/MMT/images/1719381692923-safePayment.png"
-              alt="Safe Payment"
-              className="h-7 sm:h-8 w-auto object-contain shrink-0"
-            />
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              <img src={footerPciDss} alt="PCI DSS" className="h-5 sm:h-6 w-auto object-contain" />
+              <img src={footerVerisign} alt="Verified" className="h-5 sm:h-6 w-auto object-contain" />
+              <img src={footerVisa} alt="Visa" className="h-5 sm:h-6 w-auto object-contain" />
+              <img src={footerMastercard} alt="Mastercard SecureCode" className="h-5 sm:h-6 w-auto object-contain" />
+            </div>
             <span className="flex items-center gap-1.5 ml-auto">
               <span>powered by</span>
               <img src={npstLogo} alt="NPST" className="h-4 sm:h-5 w-auto object-contain" />
